@@ -26,7 +26,7 @@ export class SubmitFeedbackUseCase{
       throw new Error('comment is required');
     }
 
-    if (screenshot && !screenshot.startsWith('data:image/jpeg;base64,')){
+    if (screenshot && !screenshot.startsWith('data:image/png;base64,')){
       throw new Error('Screenshot must be a base64 encoded string');
     }
 
@@ -42,7 +42,10 @@ export class SubmitFeedbackUseCase{
         `<div style="font-family: sans-serif; font-size: 16px; color: #111;">`,
         `<p>Tipo de feedback: ${type}</p>`,
         `<p>Comentário: ${comment}</p>`,
-        `<p>Screenshot: <img src="${screenshot}" alt="Screenshot do feedback" /></p>`,
+        screenshot ?
+        `<p>Screenshot: <img src="${screenshot}" alt="Screenshot do feedback" /></p>`
+        : 
+        '',
         `</div>`
       ].join('\n')
 
